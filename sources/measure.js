@@ -15,8 +15,7 @@ export default class BMI extends React.Component {
     state = {
         x: 0,
         y: 0,
-        z: 0,
-        mesurementData:[],
+        z: 0,        
         notificationS: null,
         notificationT: null,
         time: null,
@@ -24,6 +23,10 @@ export default class BMI extends React.Component {
         indicatorStatus: false,
         isMeasured: false,
       }
+
+    helper = {
+      mesurementData:[],
+    }
 
     constructor(props) {
         super(props);
@@ -34,7 +37,6 @@ export default class BMI extends React.Component {
           x: 0,
           y: 0,
           z: 0,
-          mesurementData:[],
           notificationS: null,
           notificationT: null,
           time: null,
@@ -42,22 +44,23 @@ export default class BMI extends React.Component {
           indicatorStatus: false,
           isMeasured: false,
         })
+        this.helper.measurementData = [];
     }
       measureStart = (val) => {
+        this.helper.measurementData = [];
         this.setState ({
-          measurementData: [],
           indicatorStatus: true,
         }, () => {
           console.log('accelerometer');
           Accelerometer.setUpdateInterval(10);
           Accelerometer.addListener(accelerometerData => {
-            let foo = this.state.measurementData;
+            let foo = this.helper.measurementData;
             foo.push({
               x: accelerometerData.x*9.81, 
               y: accelerometerData.y*9.81, 
               z: accelerometerData.z*9.81-9.81,
             })
-            this.setState({ measurementData: foo}); 
+            this.helper = ({ measurementData: foo}); 
           });
         })
         
@@ -67,7 +70,7 @@ export default class BMI extends React.Component {
 
         Accelerometer.removeAllListeners()
 
-        let data = this.state.measurementData;       
+        let data = this.helper.measurementData;       
         let filtered = 0;
 
         for (let g = 0; g < data.length; g++) {
@@ -89,14 +92,17 @@ export default class BMI extends React.Component {
       }
 
       render() {
-        console.log(this.state);
         return (
           <ScrollView>
             <View style={styles.container}>
               <Text style={styles.headertext}>Höhenmessung</Text>
               <View style={[styles.inputContainer, {maxHeight: 350}]}>
                 <Text style={styles.inputText}>Halten Sie Ihr Smartphone mit dem Display nach oben. Drücken Sie den Start-Button und lassen Sie es fallen. Drücken Sie dann den Stopp-Button.</Text>
+              </View>
+              <View  style={styles.outputContainer}>
                 <Button onPress={this.measureStart} title="Starten" style={styles.button}></Button>
+              </View>
+              <View  style={styles.outputContainer}>
                 <Button onPress={this.measureStop} title="Stoppen" style={styles.button}></Button>
               </View>
               <View style={styles.outputContainer}>
@@ -110,8 +116,7 @@ export default class BMI extends React.Component {
                 </View>
               </View>
             </View>
-          </ScrollView>
-            
+          </ScrollView>            
         );
       }
     }

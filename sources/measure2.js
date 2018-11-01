@@ -156,8 +156,10 @@ export default class Bewegungsmesser extends React.Component {
                 <Text style={styles.headertext}>Distanzmessung</Text>
                     <View style={[styles.inputContainer, {maxHeight: 350}]}>
                         <Text style={styles.inputText}>Legen Sie Ihr Smartphone auf eine gerade Unterlage. Starten Sie die Messung und bewgen Sie das Gerät zügig zur Zielposition. Stoppen Sie die Messung. Um genauere Ergebnisse zu erzielen, können Sie die Messung 2 mal durchführen.</Text>
+                   </View>
+                    <View style={styles.outputContainer}>
                         <Button onPress={this.Start} title={this.state.buttontitle}></Button>
-                    </View>                
+                    </View>           
                     <View style={styles.outputContainer}>
                         {this.state.indicatorStatus ? <ActivityIndicator size="large"/> : null}
                         <View style={[styles.notification, styles.outputContainer, {backgroundColor: '#ccc'}]}>

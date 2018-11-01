@@ -11,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./sources/images/logo.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./sources/images/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,8 +23,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.ericjkl.toolifyapp"
+    },
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ericjkl.toolifyapp"
+    },
+    "githubUrl": "https://github.com/ericjkl/toolapp"
   }
 }

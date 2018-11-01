@@ -54,10 +54,6 @@ const styles = StyleSheet.create({
       justifyContent: "flex-start",
       backgroundColor: '#fff',
     },
-    button: {
-      height: 100,
-      fontSize: 40,
-    },
     headertext: {
       fontSize: 30,
       textAlign: 'center',

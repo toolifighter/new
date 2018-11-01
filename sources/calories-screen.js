@@ -1,14 +1,15 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, ScrollView, Text, ActivityIndicator, Button, TextInput, Picker } from 'react-native';
 import styles from './styles';
+import globalData from './global-state';
 
 export default class Calories extends React.Component {
   state = {
     isLoadingComplete: false,
     notification: null,
     sex: null,
-    gewicht: '',
-    groesse: '',
+    gewicht: globalData.userWeight,
+    groesse: globalData.userHeight,
     alter: '',
     grundumsatz: null,
     notification: null,
@@ -29,18 +30,30 @@ export default class Calories extends React.Component {
       bgColorNotification: null,
       isExecuted: false,
     })
+    console.log(this.state.groesse);
+  }
+
+  autoFill = () => {
+    this.setState({
+      gewicht: globalData.userWeight,
+      groesse: globalData.userHeight,
+    })
+    console.log(this.state.groesse, 'g');
   }
 
   eingabeGewicht = (val) => {
     this.setState({
       gewicht: val,
     })
+    globalData.globalData.userWeight = val;
   }
 
   eingabeGroesse = (val) => {
     this.setState({
       groesse: val,
     })
+    globalData.userHeight = val;
+    console.log(globalData.userHeight);
   }
 
   eingabeAlter = (val) => {
@@ -97,6 +110,9 @@ export default class Calories extends React.Component {
           <TextInput onChangeText={this.eingabeGewicht} value={this.state.gewicht} style={styles.inputText}></TextInput>
           <Text style={styles.inputText}>Alter:</Text>
           <TextInput onChangeText={this.eingabeAlter} value={this.state.alter} style={styles.inputText}></TextInput>
+        </View>
+        <View style={styles.outputContainer}>
+          <Button onPress={this.autoFill} title="Automatisch ausfüllen" />
         </View>
         <View style={styles.outputContainer}>
           <Button onPress={this.berechnenGrundumsatz} title="Grundumsatz berechnen"/>
